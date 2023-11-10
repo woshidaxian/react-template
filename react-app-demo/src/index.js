@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Home from './pages/Home/Home'
 import reportWebVitals from './reportWebVitals';
+import './assets/css/mixin.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // 严格模式， 帮助在开发过程中尽早地发现组件中的常见错误
   <React.StrictMode>
-    <App />
+    <Home />
   </React.StrictMode>
 );
 
