@@ -25,6 +25,7 @@ function Base(props){
   )
 }
 
+// 待父组件传递部分为children
 function User(props) {
   return (
     <div>
@@ -34,6 +35,7 @@ function User(props) {
   )
 }
 
+// 一个组件必须时纯粹的，它不会更改在函数调用前就已经存在的对象或变量
 function Info({name, age, country}) {
   return (
     <>
@@ -44,7 +46,7 @@ function Info({name, age, country}) {
   )
 }
 
-// 事件组件
+// 时间组件
 function GetT() {
   const [time, setTime] = useState(new Date().getTime())
   setInterval(() => {
@@ -56,6 +58,28 @@ function GetT() {
   )
 }
 
+// 条件渲染+列表渲染
+function DelNews({news}){
+  return news.map((item, index)=>{
+    // 使用if+return判断返回，注意返回null并不常见，可以在父组件里选择是否要渲染该组件
+    // Warning: Each child in a list should have a unique "key" prop.
+    // key值最好不要使用数组的索引值或随机生成，会带来意想不到的BUG或者造成运行变慢的问题
+    if(item.isDel){
+      // 当要返回多个DOM节点时，Fragment的简写形式'<></>'无法接受key，要么用div标签包裹起来，要么使用完整的Fragment写法'<Fragment>...</Fragment>'
+      return <div key={index}>{item.sth} 已删除</div>
+    }else{
+      return <div key={index}>{item.sth}</div>
+    }
+
+    // 使用三目运算符？：
+    // return <div>{item.sth}{item.isDel?'已删除' : ''}</div>
+
+    // 使用&&运算符，在表达式的左侧若为true时，则返回其右侧值
+    // return <div>{item.sth} {item.isDel && '已删除'}</div>
+    // 切勿将数字放在&&左侧，如果左侧是个0，表达式将返回（0）
+  })
+}
+
 export default function Top(){
 
   const info = {
@@ -63,6 +87,15 @@ export default function Top(){
     age: 100,
     country: 'China'
   }
+
+  const newsList = [
+    { sth: 'adfadajiofajdiasjda', isDel: true },
+    { sth: 'adfadajiofajdiasjda', isDel: false },
+    { sth: 'adfadajiofajdiasjda', isDel: false },
+    { sth: 'adfadajiofajdiasjda', isDel: false },
+    { sth: 'adfadajiofajdiasjda', isDel: false },
+    { sth: 'adfadajiofajdiasjda', isDel: false },
+  ]
 
   const [direction, setDirection] = useState('')
 
@@ -87,6 +120,8 @@ export default function Top(){
       <Base {...info} />
 
       <GetT />
+
+      <DelNews news={newsList} />
     </>
   )
 }
