@@ -1,5 +1,6 @@
-import { useReducer, useState } from "react"
+import { useContext, useReducer, useState } from "react"
 import { tasksReducer } from "./home.module.reducer"
+import { NameContext } from "./home.module.context"
 let nextId = 1
 const taskList = [
   {
@@ -24,12 +25,17 @@ export default function Bottom(){
 
   return (
     <div>
-      <TaskList list={tasks} onChangeTask={handleEdit} />
+      {/* 使用context传递参数，避免props逐级传递 */}
+      {/* 使用的是最近一层提供的context，若有嵌套且值发生了变化，逐级子组件会取得不一样的值 */}
+      <NameContext.Provider value="HWG">
+        <TaskList list={tasks} onChangeTask={handleEdit} />  
+      </NameContext.Provider>
     </div>
   )
 }
 
 function TaskList({ list, onChangeTask }) {
+  const name = useContext(NameContext)
   return (
     <div>
       {
@@ -39,6 +45,7 @@ function TaskList({ list, onChangeTask }) {
           )
         })
       }
+      {name}
     </div>
   )
 }
