@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './../../assets/css/home.scss'
 import Top from './home.module.top'
+import Center from './home.module.center'
+import Bottom from './home.module.bottom'
 
 // React组件是JavaScript函数，组件名称必须是大写字母开头
 export default function Home(){
 
-  // 不可嵌套定义组件，影响效率且有可能产生BUG
+  // 不可嵌套定义组件，影响效率且有可能产生BUG，父组件渲染时会重置子组件，导致state重置
   // function SubComponent() {}
 
   const [count, setCount] = useState(0)
@@ -32,6 +34,10 @@ export default function Home(){
       {/* 传递对象{}，调用方法fn() */}
       <div style={{fontSize: '30px', color: 'yellow'}}>{getTime()}</div>
       <Top/>
+
+      <Center />
+
+      <Bottom />
     </>
     // JSX虽然看起来像HTML，但在底层其实被转化为了JavaScript对象，一个函数不能返回多个对象，除非用一个数组把它们包装起来
   )

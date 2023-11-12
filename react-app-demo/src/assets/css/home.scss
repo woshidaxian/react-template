@@ -18,3 +18,21 @@
   align-items: center;
   justify-content: space-between;
 }
+
+
+
+.center-box{
+  @include wh(100%, auto);
+  background: #ffd8d8;
+}
+
+.parent-node{
+  width: 400px;
+  height: 80px;
+  background: blue;
+  div{
+    width: 100px;
+    height: 50px;
+    background: orange;
+  }
+}

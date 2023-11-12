@@ -58,6 +58,14 @@ function GetT() {
   )
 }
 
+function HasDel() {
+  return (
+    <span style={{
+      color: 'red'
+    }}>已删除</span>
+  )
+}
+
 // 条件渲染+列表渲染
 function DelNews({news}){
   return news.map((item, index)=>{
@@ -66,7 +74,7 @@ function DelNews({news}){
     // key值最好不要使用数组的索引值或随机生成，会带来意想不到的BUG或者造成运行变慢的问题
     if(item.isDel){
       // 当要返回多个DOM节点时，Fragment的简写形式'<></>'无法接受key，要么用div标签包裹起来，要么使用完整的Fragment写法'<Fragment>...</Fragment>'
-      return <div key={index}>{item.sth} 已删除</div>
+      return <div key={index}>{item.sth} <HasDel /></div>
     }else{
       return <div key={index}>{item.sth}</div>
     }
@@ -89,19 +97,21 @@ export default function Top(){
   }
 
   const newsList = [
-    { sth: 'adfadajiofajdiasjda', isDel: true },
-    { sth: 'adfadajiofajdiasjda', isDel: false },
-    { sth: 'adfadajiofajdiasjda', isDel: false },
-    { sth: 'adfadajiofajdiasjda', isDel: false },
-    { sth: 'adfadajiofajdiasjda', isDel: false },
-    { sth: 'adfadajiofajdiasjda', isDel: false },
+    { sth: '测试文字测试文字测试文字测试文字测试文字', isDel: true },
+    { sth: '测试文字测试文字测试文字', isDel: false },
+    { sth: '测试文字测试文字测试文字测试文字测试文字测试文字', isDel: false },
+    { sth: '测试文字测试文字测试文字测试文字', isDel: false },
+    { sth: '测试文字测试文字', isDel: false },
+    { sth: '测试文字', isDel: false },
   ]
 
   const [direction, setDirection] = useState('')
 
   function handleClick(dir) {
     if(dir === 'left'){
+      console.log(direction)
       setDirection('左')
+      console.log(direction)
     }else if(dir === 'right'){
       setDirection('右')
     }

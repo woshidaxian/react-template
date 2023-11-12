@@ -11,6 +11,8 @@ root.render(
   <React.StrictMode>
     <Home />
   </React.StrictMode>
+  // 在一个 React 应用中一次屏幕更新都会发生以下三个步骤
+  // 触发 => 渲染 => 提交
 );
 
 // If you want to start measuring performance in your app, pass a function
